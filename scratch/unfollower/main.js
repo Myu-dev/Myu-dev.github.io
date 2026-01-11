@@ -17,7 +17,7 @@ async function nowFollower(username){
     const nowFollowers=[];
     while(hasMore){
         const response=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`).catch(console.error);
-        if(!response.ok)throw new Error("User not found");
+        if(!response.ok)console.error(response.status,response.ok);
         const html=await response.text();
         console.log(html);
         const parser=new DOMParser();
@@ -29,4 +29,5 @@ async function nowFollower(username){
         page++;
         if(page>1000)hasMore=false;
     }
+    return nowFollowers;
 }
