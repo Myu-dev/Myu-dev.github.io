@@ -16,7 +16,7 @@ async function nowFollower(username){
     let hasMore=true;
     const nowFollowers=[];
     while(hasMore){
-        const response=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`);
+        const response=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`).catch(console.error);
         if(!response.ok)throw new Error("User not found");
         const html=await response.text();
         console.log(html);
