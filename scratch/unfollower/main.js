@@ -21,7 +21,7 @@ async function nowFollower(username){
         const html=await response.text();
         console.log(html);
         const parser=new DOMParser();
-        const doc=parser.parseFromString(html);
+        const doc=parser.parseFromString(html,"text/html");
         
         const users=[...doc.querySelectorAll("span.title > a")].map(el=>el.textContent.trim());
         if(users.length===0)hasMore=false;
