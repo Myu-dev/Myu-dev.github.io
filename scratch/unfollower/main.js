@@ -4,7 +4,7 @@ const result=document.querySelector(".result")
 let processing=false;
 button.addEventListener("click",async()=>{
     const user=input.value;
-    const unfollowers=await unfollower(username);
+    const unfollowers=await unfollower(user);
     result.textContent=unfollowers;
 });
 async function unfollower(username){
