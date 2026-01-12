@@ -10,7 +10,10 @@ button.addEventListener("click",async()=>{
 async function unfollower(username){
     const nowFollowers=await nowFollower(username);
     const oldFollowers=await oldFollower(username);
-    return oldFollowers
+
+    const set=new Set(oldFollowers);
+    const unfollowers=oldFollowers.filter(name=>set.has(name));
+    return unfollowers;
 }
 async function oldFollower(username) {
     let offset=0;
@@ -26,19 +29,19 @@ async function oldFollower(username) {
             oldFollowers.push(...names);
         }
     }
+    return oldFollowers;
 }
 async function nowFollower(username){
     let page=1;
     let hasMore=true;
     const nowFollowers=[];
     while(hasMore){
-        const res=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`).catch(console.error);
+        const res=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`);
         if(!res.ok){
             if(page!==1)return nowFollowers;
             else throw new Error("User not found");
         }
         const html=await res.text();
-        console.log(html);
         const parser=new DOMParser();
         const doc=parser.parseFromString(html,"text/html");
         
