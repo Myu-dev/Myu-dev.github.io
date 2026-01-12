@@ -9,19 +9,35 @@ button.addEventListener("click",async()=>{
 });
 async function unfollower(username){
     const nowFollowers=await nowFollower(username);
-    return nowFollowers
+    const oldFollowers=await oldFollower(username);
+    return oldFollowers
+}
+async function oldFollower(username) {
+    let offset=0;
+    let hasMore=true;
+    const oldFollowers=[];
+    while(hasMore){
+        const res=await fetch(`https://cors.maxi.workers.dev/?https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`);
+        if(!res.ok)break;
+        const data=await res.json();
+        if(data.length===0)hasMore=false;
+        else {
+            const names=data.map(item=>item.username);
+            oldFollowers.push(...names);
+        }
+    }
 }
 async function nowFollower(username){
     let page=1;
     let hasMore=true;
     const nowFollowers=[];
     while(hasMore){
-        const response=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`).catch(console.error);
-        if(!response.ok){
+        const res=await fetch(`https://scratch.mit.edu/users/${username}/followers/?page=${page}`).catch(console.error);
+        if(!res.ok){
             if(page!==1)return nowFollowers;
             else throw new Error("User not found");
         }
-        const html=await response.text();
+        const html=await res.text();
         console.log(html);
         const parser=new DOMParser();
         const doc=parser.parseFromString(html,"text/html");
