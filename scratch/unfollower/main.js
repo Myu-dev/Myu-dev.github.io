@@ -19,8 +19,10 @@ async function oldFollower(username) {
     let offset=0;
     let hasMore=true;
     const oldFollowers=[];
+    const proxy="https://api.allorigins.win/get?url="
     while(hasMore){
-        const res=await fetch(`https://cors.maxi.workers.dev/?https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`);
+        const url=proxy+encodeURIComponent(`https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`)
+        const res=await fetch(url);
         if(!res.ok)break;
         const data=await res.json();
         if(data.length===0)hasMore=false;
