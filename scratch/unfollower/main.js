@@ -22,7 +22,7 @@ async function oldFollower(username) {
     let hasMore=true;
     const oldFollowers=[];
     while(hasMore){
-        const url=proxy+encodeURIComponent(`https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`)
+        const url=proxy+`https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`;
         const res=await fetch(url);
         if(!res.ok)break;
         const data=await res.json();
