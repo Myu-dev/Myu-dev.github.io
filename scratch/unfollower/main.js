@@ -1,3 +1,5 @@
+const proxy="https://cors-proxy.myu-dev.workers.dev/"
+
 const input=document.getElementById("user-input");
 const button=document.getElementById("user-button");
 const result=document.querySelector(".result")
@@ -19,7 +21,6 @@ async function oldFollower(username) {
     let offset=0;
     let hasMore=true;
     const oldFollowers=[];
-    const proxy="https://api.allorigins.win/get?url="
     while(hasMore){
         const url=proxy+encodeURIComponent(`https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`)
         const res=await fetch(url);
