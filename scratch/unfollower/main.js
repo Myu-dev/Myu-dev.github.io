@@ -5,7 +5,7 @@ let processing=false;
 button.addEventListener("click",async()=>{
     const user=input.value;
     const unfollowers=await unfollower(user);
-    result.textContent=unfollowers;
+    result.innerHTML=unfollowers.map(name=>`<div>${name}</div>`).join("");
 });
 async function unfollower(username){
     const nowFollowers=await nowFollower(username);
