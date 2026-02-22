@@ -20,7 +20,7 @@ async function oldFollower(username) {
     let hasMore=true;
     const oldFollowers=[];
     while(hasMore){
-        const url=proxy+encodeURI(`https://script.google.com/macros/s/AKfycbwgSXaSaeIkid9YJKRGCZqaTVCzCWlB4lUGyPPNY2Xu_YUZkmSgADv2Cd5shXZX-nikKA/exec?username=${username}&offset=${offset}`);
+        const url=`https://script.google.com/macros/s/AKfycbwgSXaSaeIkid9YJKRGCZqaTVCzCWlB4lUGyPPNY2Xu_YUZkmSgADv2Cd5shXZX-nikKA/exec?username=${username}&offset=${offset}`;
         const res=await fetch(url);
         if(!res.ok)break;
         const data=await res.json();
