@@ -1,5 +1,3 @@
-const proxy="https://cors-proxy.myu-dev.workers.dev/"
-
 const input=document.getElementById("user-input");
 const button=document.getElementById("user-button");
 const result=document.querySelector(".result")
@@ -22,7 +20,7 @@ async function oldFollower(username) {
     let hasMore=true;
     const oldFollowers=[];
     while(hasMore){
-        const url=proxy+encodeURI(`https://api.scratch.mit.edu/users/${username}/followers?offset=${offset}`);
+        const url=proxy+encodeURI(`https://script.google.com/macros/s/AKfycbwgSXaSaeIkid9YJKRGCZqaTVCzCWlB4lUGyPPNY2Xu_YUZkmSgADv2Cd5shXZX-nikKA/exec?username=${username}&offset=${offset}`);
         const res=await fetch(url);
         if(!res.ok)break;
         const data=await res.json();
