@@ -11,25 +11,33 @@ async function unfollower(username){
     const nowFollowers=await nowFollower(username);
     const oldFollowers=await oldFollower(username);
 
-    const set=new Set(oldFollowers);
-    const unfollowers=oldFollowers.filter(name=>set.has(name));
+    const set=new Set(nowFollowers);
+    const unfollowers=oldFollowers.filter(name => !set.has(name));
+
     return unfollowers;
 }
 async function oldFollower(username) {
     let offset=0;
     let hasMore=true;
     const oldFollowers=[];
+
     while(hasMore){
         const url=`https://script.google.com/macros/s/AKfycbwgSXaSaeIkid9YJKRGCZqaTVCzCWlB4lUGyPPNY2Xu_YUZkmSgADv2Cd5shXZX-nikKA/exec?username=${username}&offset=${offset}`;
+
         const res=await fetch(url);
         if(!res.ok)break;
+
         const data=await res.json();
-        if(data.length===0)hasMore=false;
-        else {
+
+        if(data.length===0){
+            hasMore=false;
+        } else {
             const names=data.map(item=>item.username);
             oldFollowers.push(...names);
+            offset += data.length;
         }
     }
+
     return oldFollowers;
 }
 async function nowFollower(username){
