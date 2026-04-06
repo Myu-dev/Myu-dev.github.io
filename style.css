@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: linear-gradient(160deg,#a78bfa,#f0abfc,#fde2ff);
+    color: white;
+    overflow-x: hidden;
+}
+
+.icon{
+    width: 180px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255,255,255,0.6);
+    margin: 20px;
+}
+
+/* 星のスタイル */
+.star{
+  position: absolute;
+  display: block;
+  background-color: #fff; /* 星の色 */
+  border-radius: 50%;
+  box-shadow: 0 0 4px 2px rgba(#fff, 0.2); /* 星の影 */
+  opacity: 0;
+  animation: twinkle 5s infinite;
+}
+@keyframes twinkle{
+  0%{
+    opacity: 0;
+  }
+
+  50%{
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100%{
+    opacity: 0;
+    transform: scale(1);
+  }
+}
